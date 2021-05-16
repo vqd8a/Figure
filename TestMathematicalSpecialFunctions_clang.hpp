@@ -638,7 +638,7 @@ struct TestComplexBesselJ0Y0Function {
   }
 
   KOKKOS_INLINE_FUNCTION
-  void operator()(const TestLargeArgTag&, const int& i) const {
+  void operator()(const TestLargeArgTag&, const int& /*i*/) const {
     d_cbj0_large(0) =
         Kokkos::Experimental::cbesselj0<Kokkos::complex<double>, double, int>(
             d_z_large(0));
@@ -930,7 +930,7 @@ struct TestComplexBesselJ1Y1Function {
   }
 
   KOKKOS_INLINE_FUNCTION
-  void operator()(const TestLargeArgTag&, const int& i) const {
+  void operator()(const TestLargeArgTag&, const int& /*i*/) const {
     d_cbj1_large(0) =
         Kokkos::Experimental::cbesselj1<Kokkos::complex<double>, double, int>(
             d_z_large(0));
@@ -1186,7 +1186,7 @@ struct TestComplexBesselI0K0Function {
   }
 
   KOKKOS_INLINE_FUNCTION
-  void operator()(const TestLargeArgTag&, const int& i) const {
+  void operator()(const TestLargeArgTag&, const int& /*i*/) const {
     d_cbi0_large(0) =
         Kokkos::Experimental::cbesseli0<Kokkos::complex<double>, double, int>(
             d_z_large(0));
@@ -1423,7 +1423,7 @@ struct TestComplexBesselI1K1Function {
   }
 
   KOKKOS_INLINE_FUNCTION
-  void operator()(const TestLargeArgTag&, const int& i) const {
+  void operator()(const TestLargeArgTag&, const int& /*i*/) const {
     d_cbi1_large(0) =
         Kokkos::Experimental::cbesseli1<Kokkos::complex<double>, double, int>(
             d_z_large(0));
@@ -1607,15 +1607,11 @@ struct TestComplexBesselH1Function {
     h_ref_ch11(24) =
         Kokkos::complex<double>(-5.430453818237824e-02, -1.530182458039000e-02);
 
-    EXPECT_TRUE(std::isnan(h_ch10(0).real()));
-    EXPECT_TRUE(std::isnan(h_ch10(0).imag()));
     for (int i = 1; i < N; i++) {
       EXPECT_LE(Kokkos::abs(h_ch10(i) - h_ref_ch10(i)),
                 Kokkos::abs(h_ref_ch10(i)) * 1e-13);
     }
 
-    EXPECT_TRUE(std::isnan(h_ch11(0).real()));
-    EXPECT_TRUE(std::isnan(h_ch11(0).imag()));
     for (int i = 1; i < N; i++) {
       EXPECT_LE(Kokkos::abs(h_ch11(i) - h_ref_ch11(i)),
                 Kokkos::abs(h_ref_ch11(i)) * 1e-13);
@@ -1791,15 +1787,11 @@ struct TestComplexBesselH2Function {
     h_ref_ch21(24) =
         Kokkos::complex<double>(1.629136145471347e-01, +1.530182458039000e-02);
 
-    EXPECT_TRUE(std::isnan(h_ch20(0).real()));
-    EXPECT_TRUE(std::isnan(h_ch20(0).imag()));
     for (int i = 1; i < N; i++) {
       EXPECT_LE(Kokkos::abs(h_ch20(i) - h_ref_ch20(i)),
                 Kokkos::abs(h_ref_ch20(i)) * 1e-13);
     }
 
-    EXPECT_TRUE(std::isnan(h_ch21(0).real()));
-    EXPECT_TRUE(std::isnan(h_ch21(0).imag()));
     for (int i = 1; i < N; i++) {
       EXPECT_LE(Kokkos::abs(h_ch21(i) - h_ref_ch21(i)),
                 Kokkos::abs(h_ref_ch21(i)) * 1e-13);
