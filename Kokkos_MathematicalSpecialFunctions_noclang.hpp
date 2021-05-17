@@ -1131,13 +1131,16 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh10(const CmplxType& z) {
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
   using RealType = typename CmplxType::value_type;
+  using Kokkos::Experimental::infinity;
+
+  auto const inf = infinity<RealType>::value;
 
   CmplxType ch10, cbk0, cbj0, cby0;
   const RealType pi = M_PI;
   CmplxType ci = CmplxType(0.0,1.0);
 
   if ((z.real() == 0.0)&&(z.imag() == 0.0)) {
-    ch10 = CmplxType(0.0/0.0,0.0/0.0);
+    ch10 = CmplxType(1.0, -inf);
   }
   else if (z.imag() <= 0.0) {
     cbj0 = cbesselj0<CmplxType, RealType, int>(z);
@@ -1160,13 +1163,16 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh11(const CmplxType& z) {
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
   using RealType = typename CmplxType::value_type;
+  using Kokkos::Experimental::infinity;
+
+  auto const inf = infinity<RealType>::value;
 
   CmplxType ch11, cbk1, cbj1, cby1;
   const RealType pi = M_PI;
   CmplxType ci = CmplxType(0.0,1.0);
 
   if ((z.real() == 0.0)&&(z.imag() == 0.0)) {
-    ch11 = CmplxType(0.0/0.0,0.0/0.0);;
+    ch11 = CmplxType(0.0, -inf);
   }
   else if (z.imag() <= 0.0) {
     cbj1 = cbesselj1<CmplxType, RealType, int>(z);
@@ -1189,13 +1195,16 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh20(const CmplxType& z) {
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
   using RealType = typename CmplxType::value_type;
+  using Kokkos::Experimental::infinity;
+
+  auto const inf = infinity<RealType>::value;
 
   CmplxType ch20, cbk0, cbj0, cby0;
   const RealType pi = M_PI;
   CmplxType ci = CmplxType(0.0,1.0);
 
   if ((z.real() == 0.0)&&(z.imag() == 0.0)) {
-    ch20 = CmplxType(0.0/0.0,0.0/0.0);;
+    ch20 = CmplxType(1.0, inf);
   }
   else if (z.imag() >= 0.0) {
     cbj0 = cbesselj0<CmplxType, RealType, int>(z);
@@ -1218,13 +1227,16 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh21(const CmplxType& z) {
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
   using RealType = typename CmplxType::value_type;
+  using Kokkos::Experimental::infinity;
+
+  auto const inf = infinity<RealType>::value;
 
   CmplxType ch21, cbk1, cbj1, cby1;
   const RealType pi = M_PI;
   CmplxType ci = CmplxType(0.0,1.0);
 
   if ((z.real() == 0.0)&&(z.imag() == 0.0)) {
-    ch21 = CmplxType(0.0/0.0,0.0/0.0);;
+    ch21 = CmplxType(0.0, inf);
   }
   else if (z.imag() >= 0.0) {
     cbj1 = cbesselj1<CmplxType, RealType, int>(z);
