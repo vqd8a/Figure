@@ -62,7 +62,7 @@ namespace Experimental {
 
 //! Compute exponential integral E1(x) (x > 0).
 template<class RealType>
-KOKKOS_INLINE_FUNCTION RealType expint(const RealType& x) {
+KOKKOS_INLINE_FUNCTION RealType expint1(RealType x) {
 //This function is a conversion of the corresponding Fortran program in
 //S. Zhang & J. Jin "Computation of Special Functions" (Wiley, 1996).
   using Kokkos::Experimental::infinity;
@@ -105,8 +105,8 @@ KOKKOS_INLINE_FUNCTION RealType expint(const RealType& x) {
 }
 
 //! Compute error function erf(z) for z=cmplx(x,y).
-template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cerf(const CmplxType& z) {
+template <class RealType>
+KOKKOS_INLINE_FUNCTION Kokkos::complex<RealType> erf(const Kokkos::complex<RealType>& z) {
 //This function is a conversion of the corresponding Fortran program written
 //by D.E. Amos, May,1974. D.E. Amos' revisions of Jan 86 incorporated by
 //Ken Damrau on 27-Jan-1986 14:37:13
@@ -129,7 +129,7 @@ KOKKOS_INLINE_FUNCTION CmplxType cerf(const CmplxType& z) {
   using Kokkos::Experimental::cos;
   using Kokkos::Experimental::sin;
 
-  using RealType = typename CmplxType::value_type;
+  using CmplxType = Kokkos::complex<RealType>;
 
   auto const inf = infinity<RealType>::value;
   auto const tol = epsilon<RealType>::value;
@@ -280,8 +280,8 @@ KOKKOS_INLINE_FUNCTION CmplxType cerf(const CmplxType& z) {
 
 //! Compute scaled complementary error function erfcx(z)=exp(z^2)*erfc(z)
 //! for z=cmplx(x,y).
-template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cerfcx(const CmplxType& z) {
+template<class RealType>
+KOKKOS_INLINE_FUNCTION Kokkos::complex<RealType> erfcx(const Kokkos::complex<RealType>& z) {
 //This function is a conversion of the corresponding Fortran program written
 //by D.E. Amos, May,1974. D.E. Amos' revisions of Jan 86 incorporated by
 //Ken Damrau on 27-Jan-1986 14:37:13 
@@ -304,7 +304,7 @@ KOKKOS_INLINE_FUNCTION CmplxType cerfcx(const CmplxType& z) {
   using Kokkos::Experimental::cos;
   using Kokkos::Experimental::sin;
 
-  using RealType = typename CmplxType::value_type;
+  using CmplxType = Kokkos::complex<RealType>;
 
   auto const inf = infinity<RealType>::value;
   auto const tol = epsilon<RealType>::value;
@@ -455,9 +455,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cerfcx(const CmplxType& z) {
 //! Compute Bessel function J0(z) of the first kind of order zero
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselj0(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_j0(const CmplxType& z,
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //program CJYNB in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -544,9 +544,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselj0(const CmplxType& z,
 //! Compute Bessel function Y0(z) of the second kind of order zero
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbessely0(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_y0(const CmplxType& z,
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //program CJYNB in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -648,9 +648,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbessely0(const CmplxType& z,
 //! Compute Bessel function J1(z) of the first kind of order one
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselj1(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_j1(const CmplxType& z, 
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //program CJYNB in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -741,9 +741,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselj1(const CmplxType& z,
 //! Compute Bessel function Y1(z) of the second kind of order one
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbessely1(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_y1(const CmplxType& z, 
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //program CJYNB in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -848,9 +848,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbessely1(const CmplxType& z,
 //! Compute modified Bessel function I0(z) of the first kind of order zero
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesseli0(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_i0(const CmplxType& z, 
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CIKNB and CIK01 in S. Zhang & J. Jin "Computation of Special
 //Functions" (Wiley, 1996).
@@ -911,9 +911,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesseli0(const CmplxType& z,
 //! Compute modified Bessel function K0(z) of the second kind of order zero
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselk0(const CmplxType& z, 
-                                           const RealType& joint_val=9,
-                                           const IntType& bw_start=30) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_k0(const CmplxType& z, 
+                                               const RealType& joint_val=9,
+                                               const IntType& bw_start=30) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CIKNB and CIK01 in S. Zhang & J. Jin "Computation of Special
 //Functions" (Wiley, 1996).
@@ -974,9 +974,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselk0(const CmplxType& z,
     }
     if (z.real() < 0.0) { //Apply (6.4.4)
       if(z.imag() < 0.0)
-        cbk0 = cbk0+ci*pi*cbesseli0<CmplxType, RealType, IntType>(z);
+        cbk0 = cbk0+ci*pi*cyl_bessel_i0<CmplxType, RealType, IntType>(z);
       if(z.imag() >= 0.0)
-        cbk0 = cbk0-ci*pi*cbesseli0<CmplxType, RealType, IntType>(z); 
+        cbk0 = cbk0-ci*pi*cyl_bessel_i0<CmplxType, RealType, IntType>(z); 
     }
   }
   return cbk0;
@@ -985,9 +985,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselk0(const CmplxType& z,
 //! Compute modified Bessel function I1(z) of the first kind of order one
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesseli1(const CmplxType& z, 
-                                           const RealType& joint_val=25,
-                                           const IntType& bw_start=70) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_i1(const CmplxType& z, 
+                                               const RealType& joint_val=25,
+                                               const IntType& bw_start=70) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CIKNB and CIK01 in S. Zhang & J. Jin "Computation of Special
 //Functions" (Wiley, 1996).
@@ -1051,9 +1051,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesseli1(const CmplxType& z,
 //! Compute modified Bessel function K1(z) of the second kind of order one
 //! for a complex argument
 template<class CmplxType, class RealType, class IntType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselk1(const CmplxType& z, 
-                                           const RealType& joint_val=9,
-                                           const IntType& bw_start=30) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_k1(const CmplxType& z, 
+                                               const RealType& joint_val=9,
+                                               const IntType& bw_start=30) {
   //This function is converted and modified from the corresponding Fortran 
   //programs CIKNB and CIK01 in S. Zhang & J. Jin "Computation of Special
   //Functions" (Wiley, 1996).
@@ -1115,9 +1115,9 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselk1(const CmplxType& z,
     }
     if (z.real() < 0.0) { //Apply (6.4.4)
       if(z.imag() < 0.0)
-        cbk1 = -cbk1-ci*pi*cbesseli1<CmplxType, RealType, IntType>(z);
+        cbk1 = -cbk1-ci*pi*cyl_bessel_i1<CmplxType, RealType, IntType>(z);
       if(z.imag() >= 0.0)
-        cbk1 = -cbk1+ci*pi*cbesseli1<CmplxType, RealType, IntType>(z); 
+        cbk1 = -cbk1+ci*pi*cyl_bessel_i1<CmplxType, RealType, IntType>(z); 
     }
   }
   return cbk1;
@@ -1126,7 +1126,7 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselk1(const CmplxType& z,
 //! Compute Hankel function H10(z) of the first kind of order zero
 //! for a complex argument
 template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselh10(const CmplxType& z) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_h10(const CmplxType& z) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -1143,12 +1143,12 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh10(const CmplxType& z) {
     ch10 = CmplxType(1.0, -inf);
   }
   else if (z.imag() <= 0.0) {
-    cbj0 = cbesselj0<CmplxType, RealType, int>(z);
-    cby0 = cbessely0<CmplxType, RealType, int>(z);
+    cbj0 = cyl_bessel_j0<CmplxType, RealType, int>(z);
+    cby0 = cyl_bessel_y0<CmplxType, RealType, int>(z);
     ch10 = cbj0+ci*cby0;
   }
   else { //(z.imag() > 0.0)
-    cbk0 = cbesselk0<CmplxType, RealType, int>(-ci*z, 18.0, 70);
+    cbk0 = cyl_bessel_k0<CmplxType, RealType, int>(-ci*z, 18.0, 70);
     ch10 = 2.0/(pi*ci)*cbk0;
   }
 
@@ -1158,7 +1158,7 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh10(const CmplxType& z) {
 //! Compute Hankel function H11(z) of the first kind of order one
 //! for a complex argument
 template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselh11(const CmplxType& z) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_h11(const CmplxType& z) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -1175,12 +1175,12 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh11(const CmplxType& z) {
     ch11 = CmplxType(0.0, -inf);
   }
   else if (z.imag() <= 0.0) {
-    cbj1 = cbesselj1<CmplxType, RealType, int>(z);
-    cby1 = cbessely1<CmplxType, RealType, int>(z);
+    cbj1 = cyl_bessel_j1<CmplxType, RealType, int>(z);
+    cby1 = cyl_bessel_y1<CmplxType, RealType, int>(z);
     ch11 = cbj1+ci*cby1;
   }
   else { //(z.imag() > 0.0)
-    cbk1 = cbesselk1<CmplxType, RealType, int>(-ci*z, 18.0, 70);
+    cbk1 = cyl_bessel_k1<CmplxType, RealType, int>(-ci*z, 18.0, 70);
     ch11 = -2.0/pi*cbk1;
   }
 
@@ -1190,7 +1190,7 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh11(const CmplxType& z) {
 //! Compute Hankel function H20(z) of the second kind of order zero
 //! for a complex argument
 template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselh20(const CmplxType& z) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_h20(const CmplxType& z) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -1207,22 +1207,22 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh20(const CmplxType& z) {
     ch20 = CmplxType(1.0, inf);
   }
   else if (z.imag() >= 0.0) {
-    cbj0 = cbesselj0<CmplxType, RealType, int>(z);
-    cby0 = cbessely0<CmplxType, RealType, int>(z);
+    cbj0 = cyl_bessel_j0<CmplxType, RealType, int>(z);
+    cby0 = cyl_bessel_y0<CmplxType, RealType, int>(z);
     ch20 = cbj0-ci*cby0;
   }
   else { //(z.imag() < 0.0)
-    cbk0 = cbesselk0<CmplxType, RealType, int>(ci*z, 18.0, 70);
+    cbk0 = cyl_bessel_k0<CmplxType, RealType, int>(ci*z, 18.0, 70);
     ch20 = 2.0/pi*ci*cbk0;
   }
 
   return ch20;
 }
 
-//! Compute Hankel function H20(z) of the second kind of order one
+//! Compute Hankel function H21(z) of the second kind of order one
 //! for a complex argument
 template<class CmplxType>
-KOKKOS_INLINE_FUNCTION CmplxType cbesselh21(const CmplxType& z) {
+KOKKOS_INLINE_FUNCTION CmplxType cyl_bessel_h21(const CmplxType& z) {
 //This function is converted and modified from the corresponding Fortran 
 //programs CH12N in S. Zhang & J. Jin "Computation of Special Functions"
 //(Wiley, 1996).
@@ -1239,12 +1239,12 @@ KOKKOS_INLINE_FUNCTION CmplxType cbesselh21(const CmplxType& z) {
     ch21 = CmplxType(0.0, inf);
   }
   else if (z.imag() >= 0.0) {
-    cbj1 = cbesselj1<CmplxType, RealType, int>(z);
-    cby1 = cbessely1<CmplxType, RealType, int>(z);
+    cbj1 = cyl_bessel_j1<CmplxType, RealType, int>(z);
+    cby1 = cyl_bessel_y1<CmplxType, RealType, int>(z);
     ch21 = cbj1-ci*cby1;
   }
   else { //(z.imag() < 0.0)
-    cbk1 = cbesselk1<CmplxType, RealType, int>(ci*z, 18.0, 70);
+    cbk1 = cyl_bessel_k1<CmplxType, RealType, int>(ci*z, 18.0, 70);
     ch21 = -2.0/pi*cbk1;
   }
 
