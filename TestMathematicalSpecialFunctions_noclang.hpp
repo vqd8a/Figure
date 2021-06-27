@@ -5,7 +5,7 @@
 namespace Test {
 	
 struct TestLargeArgTag {};
-struct TestRealEfcxTag {};
+struct TestRealErfcxTag {};
 
 template <class ExecSpace>
 struct TestExponentialIntergral1Function {
@@ -185,7 +185,7 @@ struct TestComplexErrorFunction {
     Kokkos::parallel_for(Kokkos::RangePolicy<ExecSpace>(0, 52), *this);
     Kokkos::fence();
 
-    Kokkos::parallel_for(Kokkos::RangePolicy<ExecSpace, TestRealEfcxTag>(0, 1), *this);
+    Kokkos::parallel_for(Kokkos::RangePolicy<ExecSpace, TestRealErfcxTag>(0, 1), *this);
     Kokkos::fence();
 
     Kokkos::deep_copy(h_erf, d_erf);
@@ -328,7 +328,7 @@ struct TestComplexErrorFunction {
   }
  
   KOKKOS_INLINE_FUNCTION
-  void operator()( const TestRealEfcxTag&, const int & /*i*/ ) const {
+  void operator()( const TestRealErfcxTag&, const int & /*i*/ ) const {
     d_erfcx_dbl(0) = Kokkos::Experimental::erfcx(d_x(0));
     d_erfcx_dbl(1) = Kokkos::Experimental::erfcx(d_x(1));
     d_erfcx_dbl(2) = Kokkos::Experimental::erfcx(d_x(2));
