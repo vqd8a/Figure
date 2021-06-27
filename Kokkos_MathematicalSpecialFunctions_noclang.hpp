@@ -303,6 +303,7 @@ KOKKOS_INLINE_FUNCTION Kokkos::complex<RealType> erfcx(const Kokkos::complex<Rea
   using Kokkos::Experimental::exp;
   using Kokkos::Experimental::cos;
   using Kokkos::Experimental::sin;
+  using Kokkos::Experimental::isinf;
 
   using CmplxType = Kokkos::complex<RealType>;
 
@@ -317,6 +318,15 @@ KOKKOS_INLINE_FUNCTION Kokkos::complex<RealType> erfcx(const Kokkos::complex<Rea
   const RealType pi    = M_PI;
 
   CmplxType cans;
+
+  if ((isinf(z.real()))&&(z.real()>0)) {
+    cans = CmplxType(0.0, 0.0);
+    return cans;
+  }
+  if ((isinf(z.real()))&&(z.real()<0)) {
+    cans = CmplxType(inf, inf);
+    return cans;
+  }
 
   RealType az = Kokkos::abs(z);
   if (az <= 2.0) {//Series for abs(z)<=2.0
@@ -450,6 +460,18 @@ KOKKOS_INLINE_FUNCTION Kokkos::complex<RealType> erfcx(const Kokkos::complex<Rea
     }//end (xp <= 1.0)  
   }//end (az > 2.0)
   return cans;
+}
+
+//! Compute scaled complementary error function erfcx(x)=exp(x^2)*erfc(x)
+//! for real x
+template<class RealType>
+KOKKOS_INLINE_FUNCTION RealType erfcx(RealType x) {
+  using CmplxType = Kokkos::complex<RealType>;
+  //Note: using erfcx(complex) for now
+  //TODO: replace with an implementation of erfcx(real)
+  CmplxType zin  = CmplxType(x, 0.0);
+  CmplxType zout = erfcx(zin);
+  return zout.real();
 }
 
 //! Compute Bessel function J0(z) of the first kind of order zero
